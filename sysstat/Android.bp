@@ -1,0 +1,1105 @@
+//
+// Copyright (C) 2006 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+cc_library_static {
+    name: "librdstats",
+
+    srcs: [
+        "count.c",
+        "rd_stats.c",
+    ],
+
+    cflags: [
+        "-DSOURCE_SADC",
+        "-DSA_DIR=\"/var/log/sa\"",
+        "-DSADC_PATH=\"/usr/local/lib/sa/sadc\"",
+        "-DHAVE_SYS_SYSMACROS_H",
+        "-DHAVE_SYS_PARAM_H",
+        //"-DUSE_NLS",
+        "-DPACKAGE=\"sysstat\"",
+        "-DLOCALEDIR=\"/usr/local/share/locale\"",
+    ] + [
+        "-g",
+        "-O2",
+        "-Wall",
+        "-Wstrict-prototypes",
+        "-pipe",
+        "-O2",
+    ],
+
+    multilib: {
+        lib32: {
+            cflags: [
+                "-DSIZEOF_LONG_LONG=8",
+                "-DSIZEOF_LONG=4",
+                "-DSIZEOF_RLIM_T=4",
+                "-DHAVE_STRUCT_STAT64=1",
+            ],
+        },
+        lib64: {
+            cflags: [
+                "-DSIZEOF_LONG_LONG=8",
+                "-DSIZEOF_LONG=8",
+                "-DSIZEOF_RLIM_T=8",
+            ],
+        },
+    },
+
+    arch: {
+        arm: {
+            cflags: ["-DARM=1"] + ["-DHAVE_STRUCT___OLD_KERNEL_STAT=1"],
+
+            local_include_dirs: [
+                "linux/arm",
+                "linux",
+            ],
+        },
+        arm64: {
+            cflags: ["-DAARCH64=1"],
+
+            local_include_dirs: [
+                "linux/aarch64",
+                "linux",
+            ],
+        },
+        mips: {
+            enabled: false,
+        },
+        mips64: {
+            enabled: false,
+        },
+        x86: {
+            cflags: ["-DI386=1"] + ["-DHAVE_STRUCT___OLD_KERNEL_STAT=1"],
+
+            local_include_dirs: [
+                "linux/i386",
+                "linux",
+            ],
+        },
+        x86_64: {
+            cflags: ["-DX86_64=1"],
+
+            local_include_dirs: [
+                "linux/x86_64",
+                "linux",
+            ],
+        },
+    },
+}
+
+cc_library_static {
+    name: "librdsensors",
+
+    srcs: [
+        "rd_sensors.c",
+    ],
+
+    cflags: [
+        "-DSA_DIR=\"/var/log/sa\"",
+        "-DSADC_PATH=\"/usr/local/lib/sa/sadc\"",
+        "-DHAVE_SYS_SYSMACROS_H",
+        "-DHAVE_SYS_PARAM_H",
+        //"-DUSE_NLS",
+        "-DPACKAGE=\"sysstat\"",
+        "-DLOCALEDIR=\"/usr/local/share/locale\"",
+    ] + [
+        "-g",
+        "-O2",
+        "-Wall",
+        "-Wstrict-prototypes",
+        "-pipe",
+        "-O2",
+    ],
+
+    multilib: {
+        lib32: {
+            cflags: [
+                "-DSIZEOF_LONG_LONG=8",
+                "-DSIZEOF_LONG=4",
+                "-DSIZEOF_RLIM_T=4",
+                "-DHAVE_STRUCT_STAT64=1",
+            ],
+        },
+        lib64: {
+            cflags: [
+                "-DSIZEOF_LONG_LONG=8",
+                "-DSIZEOF_LONG=8",
+                "-DSIZEOF_RLIM_T=8",
+            ],
+        },
+    },
+
+    arch: {
+        arm: {
+            cflags: ["-DARM=1"] + ["-DHAVE_STRUCT___OLD_KERNEL_STAT=1"],
+
+            local_include_dirs: [
+                "linux/arm",
+                "linux",
+            ],
+        },
+        arm64: {
+            cflags: ["-DAARCH64=1"],
+
+            local_include_dirs: [
+                "linux/aarch64",
+                "linux",
+            ],
+        },
+        mips: {
+            enabled: false,
+        },
+        mips64: {
+            enabled: false,
+        },
+        x86: {
+            cflags: ["-DI386=1"] + ["-DHAVE_STRUCT___OLD_KERNEL_STAT=1"],
+
+            local_include_dirs: [
+                "linux/i386",
+                "linux",
+            ],
+        },
+        x86_64: {
+            cflags: ["-DX86_64=1"],
+
+            local_include_dirs: [
+                "linux/x86_64",
+                "linux",
+            ],
+        },
+    },
+}
+
+cc_library_static {
+    name: "librdstats_light",
+
+    srcs: [
+        "count.c",
+        "rd_stats.c",
+    ],
+
+    cflags: [
+        "-DSA_DIR=\"/var/log/sa\"",
+        "-DSADC_PATH=\"/usr/local/lib/sa/sadc\"",
+        "-DHAVE_SYS_SYSMACROS_H",
+        "-DHAVE_SYS_PARAM_H",
+        //"-DUSE_NLS",
+        "-DPACKAGE=\"sysstat\"",
+        "-DLOCALEDIR=\"/usr/local/share/locale\"",
+    ] + [
+        "-g",
+        "-O2",
+        "-Wall",
+        "-Wstrict-prototypes",
+        "-pipe",
+        "-O2",
+    ],
+
+    multilib: {
+        lib32: {
+            cflags: [
+                "-DSIZEOF_LONG_LONG=8",
+                "-DSIZEOF_LONG=4",
+                "-DSIZEOF_RLIM_T=4",
+                "-DHAVE_STRUCT_STAT64=1",
+            ],
+        },
+        lib64: {
+            cflags: [
+                "-DSIZEOF_LONG_LONG=8",
+                "-DSIZEOF_LONG=8",
+                "-DSIZEOF_RLIM_T=8",
+            ],
+        },
+    },
+
+    arch: {
+        arm: {
+            cflags: ["-DARM=1"] + ["-DHAVE_STRUCT___OLD_KERNEL_STAT=1"],
+
+            local_include_dirs: [
+                "linux/arm",
+                "linux",
+            ],
+        },
+        arm64: {
+            cflags: ["-DAARCH64=1"],
+
+            local_include_dirs: [
+                "linux/aarch64",
+                "linux",
+            ],
+        },
+        mips: {
+            enabled: false,
+        },
+        mips64: {
+            enabled: false,
+        },
+        x86: {
+            cflags: ["-DI386=1"] + ["-DHAVE_STRUCT___OLD_KERNEL_STAT=1"],
+
+            local_include_dirs: [
+                "linux/i386",
+                "linux",
+            ],
+        },
+        x86_64: {
+            cflags: ["-DX86_64=1"],
+
+            local_include_dirs: [
+                "linux/x86_64",
+                "linux",
+            ],
+        },
+    },
+}
+
+cc_library_static {
+    name: "libsyscom",
+    
+    srcs: [
+        "common.c",
+        "ioconf.c",
+    ],
+
+    cflags: [
+        "-DSA_DIR=\"/var/log/sa\"",
+        "-DSADC_PATH=\"/usr/local/lib/sa/sadc\"",
+        "-DHAVE_SYS_SYSMACROS_H",
+        "-DHAVE_SYS_PARAM_H",
+        //"-DUSE_NLS",
+        "-DPACKAGE=\"sysstat\"",
+        "-DLOCALEDIR=\"/usr/local/share/locale\"",
+    ] + [
+        "-g",
+        "-O2",
+        "-Wall",
+        "-Wstrict-prototypes",
+        "-pipe",
+        "-O2",
+    ],
+
+    multilib: {
+        lib32: {
+            cflags: [
+                "-DSIZEOF_LONG_LONG=8",
+                "-DSIZEOF_LONG=4",
+                "-DSIZEOF_RLIM_T=4",
+                "-DHAVE_STRUCT_STAT64=1",
+            ],
+        },
+        lib64: {
+            cflags: [
+                "-DSIZEOF_LONG_LONG=8",
+                "-DSIZEOF_LONG=8",
+                "-DSIZEOF_RLIM_T=8",
+            ],
+        },
+    },
+
+    arch: {
+        arm: {
+            cflags: ["-DARM=1"] + ["-DHAVE_STRUCT___OLD_KERNEL_STAT=1"],
+
+            local_include_dirs: [
+                "linux/arm",
+                "linux",
+            ],
+        },
+        arm64: {
+            cflags: ["-DAARCH64=1"],
+
+            local_include_dirs: [
+                "linux/aarch64",
+                "linux",
+            ],
+        },
+        mips: {
+            enabled: false,
+        },
+        mips64: {
+            enabled: false,
+        },
+        x86: {
+            cflags: ["-DI386=1"] + ["-DHAVE_STRUCT___OLD_KERNEL_STAT=1"],
+
+            local_include_dirs: [
+                "linux/i386",
+                "linux",
+            ],
+        },
+        x86_64: {
+            cflags: ["-DX86_64=1"],
+
+            local_include_dirs: [
+                "linux/x86_64",
+                "linux",
+            ],
+        },
+    },
+}
+
+cc_binary {
+    name="sadc",
+
+    srcs: [
+	"sadc.c",
+	"activity.c",
+	"sa_wrap.c",
+	"sa_common.c",
+	"common.c",
+    ],
+
+    cflags: [
+	"-DSOURCE_SADC",
+        "-DSA_DIR=\"/var/log/sa\"",
+        "-DSADC_PATH=\"/usr/local/lib/sa/sadc\"",
+        "-DHAVE_SYS_SYSMACROS_H",
+        "-DHAVE_SYS_PARAM_H",
+        //"-DUSE_NLS",
+        "-DPACKAGE=\"sysstat\"",
+        "-DLOCALEDIR=\"/usr/local/share/locale\"",
+    ] + [
+        "-g",
+        "-O2",
+        "-Wall",
+        "-Wstrict-prototypes",
+        "-pipe",
+        "-O2",
+    ],
+
+    multilib: {
+        lib32: {
+            cflags: [
+                "-DSIZEOF_LONG_LONG=8",
+                "-DSIZEOF_LONG=4",
+                "-DSIZEOF_RLIM_T=4",
+                "-DHAVE_STRUCT_STAT64=1",
+            ],
+        },
+        lib64: {
+            cflags: [
+                "-DSIZEOF_LONG_LONG=8",
+                "-DSIZEOF_LONG=8",
+                "-DSIZEOF_RLIM_T=8",
+            ],
+        },
+    },
+
+    arch: {
+        arm: {
+            cflags: ["-DARM=1"] + ["-DHAVE_STRUCT___OLD_KERNEL_STAT=1"],
+
+            local_include_dirs: [
+                "linux/arm",
+                "linux",
+            ],
+        },
+        arm64: {
+            cflags: ["-DAARCH64=1"],
+
+            local_include_dirs: [
+                "linux/aarch64",
+                "linux",
+            ],
+        },
+        mips: {
+            enabled: false,
+        },
+        mips64: {
+            enabled: false,
+        },
+        x86: {
+            cflags: ["-DI386=1"] + ["-DHAVE_STRUCT___OLD_KERNEL_STAT=1"],
+
+            local_include_dirs: [
+                "linux/i386",
+                "linux",
+            ],
+        },
+        x86_64: {
+            cflags: ["-DX86_64=1"],
+
+            local_include_dirs: [
+                "linux/x86_64",
+                "linux",
+            ],
+        },
+    },
+
+    static_libs: [
+        "librdstats",
+        "librdsensors",
+    ],
+}
+
+cc_binary {
+    name="sar",
+
+    srcs: [
+	"sar.c",
+	"activity.c",
+	"format.c",
+	"sa_common.c",
+	"pr_stats.c",
+    ],
+
+    cflags: [
+	"-DSOURCE_SAR",
+        "-DSA_DIR=\"/var/log/sa\"",
+        "-DSADC_PATH=\"/usr/local/lib/sa/sadc\"",
+        "-DHAVE_SYS_SYSMACROS_H",
+        "-DHAVE_SYS_PARAM_H",
+        //"-DUSE_NLS",
+        "-DPACKAGE=\"sysstat\"",
+        "-DLOCALEDIR=\"/usr/local/share/locale\"",
+    ] + [
+        "-g",
+        "-O2",
+        "-Wall",
+        "-Wstrict-prototypes",
+        "-pipe",
+        "-O2",
+    ],
+
+    multilib: {
+        lib32: {
+            cflags: [
+                "-DSIZEOF_LONG_LONG=8",
+                "-DSIZEOF_LONG=4",
+                "-DSIZEOF_RLIM_T=4",
+                "-DHAVE_STRUCT_STAT64=1",
+            ],
+        },
+        lib64: {
+            cflags: [
+                "-DSIZEOF_LONG_LONG=8",
+                "-DSIZEOF_LONG=8",
+                "-DSIZEOF_RLIM_T=8",
+            ],
+        },
+    },
+
+    arch: {
+        arm: {
+            cflags: ["-DARM=1"] + ["-DHAVE_STRUCT___OLD_KERNEL_STAT=1"],
+
+            local_include_dirs: [
+                "linux/arm",
+                "linux",
+            ],
+        },
+        arm64: {
+            cflags: ["-DAARCH64=1"],
+
+            local_include_dirs: [
+                "linux/aarch64",
+                "linux",
+            ],
+        },
+        mips: {
+            enabled: false,
+        },
+        mips64: {
+            enabled: false,
+        },
+        x86: {
+            cflags: ["-DI386=1"] + ["-DHAVE_STRUCT___OLD_KERNEL_STAT=1"],
+
+            local_include_dirs: [
+                "linux/i386",
+                "linux",
+            ],
+        },
+        x86_64: {
+            cflags: ["-DX86_64=1"],
+
+            local_include_dirs: [
+                "linux/x86_64",
+                "linux",
+            ],
+        },
+    },
+
+    static_libs: [
+        "librdstats_light",
+        "libsyscom",
+    ],
+}
+
+cc_binary {
+    name="sadf",
+
+    srcs: [
+	"sadf.c",
+	"activity.c",
+	"format.c",
+	"sadf_misc.c",
+	"sa_conv.c",
+	"rndr_stats.c",
+	"xml_stats.c",
+	"json_stats.c",
+	"svg_stats.c",
+	"raw_stats.c",
+	"sa_common.c",
+    ],
+
+    cflags: [
+	"-DSOURCE_SADF",
+        "-DSA_DIR=\"/var/log/sa\"",
+        "-DSADC_PATH=\"/usr/local/lib/sa/sadc\"",
+        "-DHAVE_SYS_SYSMACROS_H",
+        "-DHAVE_SYS_PARAM_H",
+        //"-DUSE_NLS",
+        "-DPACKAGE=\"sysstat\"",
+        "-DLOCALEDIR=\"/usr/local/share/locale\"",
+    ] + [
+        "-g",
+        "-O2",
+        "-Wall",
+        "-Wstrict-prototypes",
+        "-pipe",
+        "-O2",
+    ],
+
+    multilib: {
+        lib32: {
+            cflags: [
+                "-DSIZEOF_LONG_LONG=8",
+                "-DSIZEOF_LONG=4",
+                "-DSIZEOF_RLIM_T=4",
+                "-DHAVE_STRUCT_STAT64=1",
+            ],
+        },
+        lib64: {
+            cflags: [
+                "-DSIZEOF_LONG_LONG=8",
+                "-DSIZEOF_LONG=8",
+                "-DSIZEOF_RLIM_T=8",
+            ],
+        },
+    },
+
+    arch: {
+        arm: {
+            cflags: ["-DARM=1"] + ["-DHAVE_STRUCT___OLD_KERNEL_STAT=1"],
+
+            local_include_dirs: [
+                "linux/arm",
+                "linux",
+            ],
+        },
+        arm64: {
+            cflags: ["-DAARCH64=1"],
+
+            local_include_dirs: [
+                "linux/aarch64",
+                "linux",
+            ],
+        },
+        mips: {
+            enabled: false,
+        },
+        mips64: {
+            enabled: false,
+        },
+        x86: {
+            cflags: ["-DI386=1"] + ["-DHAVE_STRUCT___OLD_KERNEL_STAT=1"],
+
+            local_include_dirs: [
+                "linux/i386",
+                "linux",
+            ],
+        },
+        x86_64: {
+            cflags: ["-DX86_64=1"],
+
+            local_include_dirs: [
+                "linux/x86_64",
+                "linux",
+            ],
+        },
+    },
+
+    static_libs: [
+        "librdstats_light",
+        "libsyscom",
+    ],
+}
+
+cc_binary {
+    name="pidstat",
+
+    srcs: [
+        "pidstat.c",
+    ],
+
+    cflags: [
+        "-DSA_DIR=\"/var/log/sa\"",
+        "-DSADC_PATH=\"/usr/local/lib/sa/sadc\"",
+        "-DHAVE_SYS_SYSMACROS_H",
+        "-DHAVE_SYS_PARAM_H",
+        //"-DUSE_NLS",
+        "-DPACKAGE=\"sysstat\"",
+        "-DLOCALEDIR=\"/usr/local/share/locale\"",
+    ] + [
+        "-g",
+        "-O2",
+        "-Wall",
+        "-Wstrict-prototypes",
+        "-pipe",
+        "-O2",
+    ],
+
+    multilib: {
+        lib32: {
+            cflags: [
+                "-DSIZEOF_LONG_LONG=8",
+                "-DSIZEOF_LONG=4",
+                "-DSIZEOF_RLIM_T=4",
+                "-DHAVE_STRUCT_STAT64=1",
+            ],
+        },
+        lib64: {
+            cflags: [
+                "-DSIZEOF_LONG_LONG=8",
+                "-DSIZEOF_LONG=8",
+                "-DSIZEOF_RLIM_T=8",
+            ],
+        },
+    },
+
+    arch: {
+        arm: {
+            cflags: ["-DARM=1"] + ["-DHAVE_STRUCT___OLD_KERNEL_STAT=1"],
+
+            local_include_dirs: [
+                "linux/arm",
+                "linux",
+            ],
+        },
+        arm64: {
+            cflags: ["-DAARCH64=1"],
+
+            local_include_dirs: [
+                "linux/aarch64",
+                "linux",
+            ],
+        },
+        mips: {
+            enabled: false,
+        },
+        mips64: {
+            enabled: false,
+        },
+        x86: {
+            cflags: ["-DI386=1"] + ["-DHAVE_STRUCT___OLD_KERNEL_STAT=1"],
+
+            local_include_dirs: [
+                "linux/i386",
+                "linux",
+            ],
+        },
+        x86_64: {
+            cflags: ["-DX86_64=1"],
+
+            local_include_dirs: [
+                "linux/x86_64",
+                "linux",
+            ],
+        },
+    },
+
+    static_libs: [
+        "librdstats_light",
+        "libsyscom",
+    ],
+}
+
+cc_binary {
+    name="iostat",
+
+    srcs: [
+        "iostat.c",
+    ],
+
+    cflags: [
+        "-DSA_DIR=\"/var/log/sa\"",
+        "-DSADC_PATH=\"/usr/local/lib/sa/sadc\"",
+        "-DHAVE_SYS_SYSMACROS_H",
+        "-DHAVE_SYS_PARAM_H",
+        //"-DUSE_NLS",
+        "-DPACKAGE=\"sysstat\"",
+        "-DLOCALEDIR=\"/usr/local/share/locale\"",
+    ] + [
+        "-g",
+        "-O2",
+        "-Wall",
+        "-Wstrict-prototypes",
+        "-pipe",
+        "-O2",
+    ],
+
+    multilib: {
+        lib32: {
+            cflags: [
+                "-DSIZEOF_LONG_LONG=8",
+                "-DSIZEOF_LONG=4",
+                "-DSIZEOF_RLIM_T=4",
+                "-DHAVE_STRUCT_STAT64=1",
+            ],
+        },
+        lib64: {
+            cflags: [
+                "-DSIZEOF_LONG_LONG=8",
+                "-DSIZEOF_LONG=8",
+                "-DSIZEOF_RLIM_T=8",
+            ],
+        },
+    },
+
+    arch: {
+        arm: {
+            cflags: ["-DARM=1"] + ["-DHAVE_STRUCT___OLD_KERNEL_STAT=1"],
+
+            local_include_dirs: [
+                "linux/arm",
+                "linux",
+            ],
+        },
+        arm64: {
+            cflags: ["-DAARCH64=1"],
+
+            local_include_dirs: [
+                "linux/aarch64",
+                "linux",
+            ],
+        },
+        mips: {
+            enabled: false,
+        },
+        mips64: {
+            enabled: false,
+        },
+        x86: {
+            cflags: ["-DI386=1"] + ["-DHAVE_STRUCT___OLD_KERNEL_STAT=1"],
+
+            local_include_dirs: [
+                "linux/i386",
+                "linux",
+            ],
+        },
+        x86_64: {
+            cflags: ["-DX86_64=1"],
+
+            local_include_dirs: [
+                "linux/x86_64",
+                "linux",
+            ],
+        },
+    },
+
+    static_libs: [
+        "librdstats_light",
+        "libsyscom",
+    ],
+}
+
+cc_binary {
+    name="tapestat",
+
+    srcs: [
+        "tapestat.c",
+    ],
+
+    cflags: [
+        "-DSA_DIR=\"/var/log/sa\"",
+        "-DSADC_PATH=\"/usr/local/lib/sa/sadc\"",
+        "-DHAVE_SYS_SYSMACROS_H",
+        "-DHAVE_SYS_PARAM_H",
+        //"-DUSE_NLS",
+        "-DPACKAGE=\"sysstat\"",
+        "-DLOCALEDIR=\"/usr/local/share/locale\"",
+    ] + [
+        "-g",
+        "-O2",
+        "-Wall",
+        "-Wstrict-prototypes",
+        "-pipe",
+        "-O2",
+    ],
+
+    multilib: {
+        lib32: {
+            cflags: [
+                "-DSIZEOF_LONG_LONG=8",
+                "-DSIZEOF_LONG=4",
+                "-DSIZEOF_RLIM_T=4",
+                "-DHAVE_STRUCT_STAT64=1",
+            ],
+        },
+        lib64: {
+            cflags: [
+                "-DSIZEOF_LONG_LONG=8",
+                "-DSIZEOF_LONG=8",
+                "-DSIZEOF_RLIM_T=8",
+            ],
+        },
+    },
+
+    arch: {
+        arm: {
+            cflags: ["-DARM=1"] + ["-DHAVE_STRUCT___OLD_KERNEL_STAT=1"],
+
+            local_include_dirs: [
+                "linux/arm",
+                "linux",
+            ],
+        },
+        arm64: {
+            cflags: ["-DAARCH64=1"],
+
+            local_include_dirs: [
+                "linux/aarch64",
+                "linux",
+            ],
+        },
+        mips: {
+            enabled: false,
+        },
+        mips64: {
+            enabled: false,
+        },
+        x86: {
+            cflags: ["-DI386=1"] + ["-DHAVE_STRUCT___OLD_KERNEL_STAT=1"],
+
+            local_include_dirs: [
+                "linux/i386",
+                "linux",
+            ],
+        },
+        x86_64: {
+            cflags: ["-DX86_64=1"],
+
+            local_include_dirs: [
+                "linux/x86_64",
+                "linux",
+            ],
+        },
+    },
+
+    static_libs: [
+        "librdstats_light",
+        "libsyscom",
+    ],
+}
+
+cc_binary {
+    name="mpstat",
+
+    srcs: [
+        "mpstat.c",
+    ],
+
+    cflags: [
+        "-DSA_DIR=\"/var/log/sa\"",
+        "-DSADC_PATH=\"/usr/local/lib/sa/sadc\"",
+        "-DHAVE_SYS_SYSMACROS_H",
+        "-DHAVE_SYS_PARAM_H",
+        //"-DUSE_NLS",
+        "-DPACKAGE=\"sysstat\"",
+        "-DLOCALEDIR=\"/usr/local/share/locale\"",
+    ] + [
+        "-g",
+        "-O2",
+        "-Wall",
+        "-Wstrict-prototypes",
+        "-pipe",
+        "-O2",
+    ],
+
+    multilib: {
+        lib32: {
+            cflags: [
+                "-DSIZEOF_LONG_LONG=8",
+                "-DSIZEOF_LONG=4",
+                "-DSIZEOF_RLIM_T=4",
+                "-DHAVE_STRUCT_STAT64=1",
+            ],
+        },
+        lib64: {
+            cflags: [
+                "-DSIZEOF_LONG_LONG=8",
+                "-DSIZEOF_LONG=8",
+                "-DSIZEOF_RLIM_T=8",
+            ],
+        },
+    },
+
+    arch: {
+        arm: {
+            cflags: ["-DARM=1"] + ["-DHAVE_STRUCT___OLD_KERNEL_STAT=1"],
+
+            local_include_dirs: [
+                "linux/arm",
+                "linux",
+            ],
+        },
+        arm64: {
+            cflags: ["-DAARCH64=1"],
+
+            local_include_dirs: [
+                "linux/aarch64",
+                "linux",
+            ],
+        },
+        mips: {
+            enabled: false,
+        },
+        mips64: {
+            enabled: false,
+        },
+        x86: {
+            cflags: ["-DI386=1"] + ["-DHAVE_STRUCT___OLD_KERNEL_STAT=1"],
+
+            local_include_dirs: [
+                "linux/i386",
+                "linux",
+            ],
+        },
+        x86_64: {
+            cflags: ["-DX86_64=1"],
+
+            local_include_dirs: [
+                "linux/x86_64",
+                "linux",
+            ],
+        },
+    },
+
+    static_libs: [
+        "librdstats_light",
+        "libsyscom",
+    ],
+}
+
+cc_binary {
+    name="cifsiostat",
+
+    srcs: [
+        "cifsiostat.c",
+    ],
+
+    cflags: [
+        "-DSA_DIR=\"/var/log/sa\"",
+        "-DSADC_PATH=\"/usr/local/lib/sa/sadc\"",
+        "-DHAVE_SYS_SYSMACROS_H",
+        "-DHAVE_SYS_PARAM_H",
+        //"-DUSE_NLS",
+        "-DPACKAGE=\"sysstat\"",
+        "-DLOCALEDIR=\"/usr/local/share/locale\"",
+    ] + [
+        "-g",
+        "-O2",
+        "-Wall",
+        "-Wstrict-prototypes",
+        "-pipe",
+        "-O2",
+    ],
+
+    multilib: {
+        lib32: {
+            cflags: [
+                "-DSIZEOF_LONG_LONG=8",
+                "-DSIZEOF_LONG=4",
+                "-DSIZEOF_RLIM_T=4",
+                "-DHAVE_STRUCT_STAT64=1",
+            ],
+        },
+        lib64: {
+            cflags: [
+                "-DSIZEOF_LONG_LONG=8",
+                "-DSIZEOF_LONG=8",
+                "-DSIZEOF_RLIM_T=8",
+            ],
+        },
+    },
+
+    arch: {
+        arm: {
+            cflags: ["-DARM=1"] + ["-DHAVE_STRUCT___OLD_KERNEL_STAT=1"],
+
+            local_include_dirs: [
+                "linux/arm",
+                "linux",
+            ],
+        },
+        arm64: {
+            cflags: ["-DAARCH64=1"],
+
+            local_include_dirs: [
+                "linux/aarch64",
+                "linux",
+            ],
+        },
+        mips: {
+            enabled: false,
+        },
+        mips64: {
+            enabled: false,
+        },
+        x86: {
+            cflags: ["-DI386=1"] + ["-DHAVE_STRUCT___OLD_KERNEL_STAT=1"],
+
+            local_include_dirs: [
+                "linux/i386",
+                "linux",
+            ],
+        },
+        x86_64: {
+            cflags: ["-DX86_64=1"],
+
+            local_include_dirs: [
+                "linux/x86_64",
+                "linux",
+            ],
+        },
+    },
+
+    static_libs: [
+        "librdstats_light",
+        "libsyscom",
+    ],
+}
+
+//        "activity.c",
+//        "pidstat.c",
+//        "sa_common.c",
+//        "sadf.c",
+//        "sa_wrap.c",
+//        "xml_stats.c",
+//        "format.c",
+//        "json_stats.c",
+//        "pr_stats.c",
+//        "sa_conv.c",
+//        "sadf_misc.c",
+//        "svg_stats.c",
+//        "raw_stats.c",
+//        "rndr_stats.c",
+//        "sadc.c",
+//        "sar.c",
